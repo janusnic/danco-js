@@ -189,7 +189,7 @@ $(document).ready(function(){
 		$('#topbox').html($('#result').html());
 	});
 
-$(".topBlock").html("<p>Новье!</p>")	изменит содержимое всех элементов с классом topBlock на параграф с текстом "Новье!".
+$(".topBlock").html("&lt;p&gt;Новье!&lt;/p&gt;")	изменит содержимое всех элементов с классом topBlock на параграф с текстом "Новье!".
 
 </pre>
 
@@ -197,14 +197,14 @@ $(".topBlock").html("<p>Новье!</p>")	изменит содержимое в
 <h3>.html(function(index, value))</h3>
 заменяет содержимое выбранных элементов на возвращенное пользовательской функцией значение. Функция вызывается отдельно, для каждого из выбранных элементов. При вызове ей передаются следующие параметры: index — позиция элемента в наборе, value — текущее html-содержимое.
 <pre>
-<div class="cont">
-  	 <div class="box red"> 1 </div>
-  	 <div class="box"> 2 </div>
-  </div>
-  <div class="cont">
-  	 <div class="box"> 3 </div>
-  	 <div class="box"> 4 </div>
-  </div>
+&lt;div class="cont"&gt;
+  	 &lt;div class="box red"&gt; 1 &lt;/div&gt;
+  	 &lt;div class="box"> 2 &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="cont"&gt;
+  	 &lt;div class="box"&gt; 3 &lt;/div&gt;
+  	 &lt;div class="box"&gt; 4 &lt;/div&gt;
+  &lt;/div&gt;
 
 
 $(".cont").html(function(indx, oldHtml){
@@ -433,9 +433,9 @@ $('#b5').click(function(){
 ":reset" элементы, являющиеся кнопками очистки формы<br>
 ":image" элементы, являющиеся изображениями для отправки формы (input типа image)<br>
 ":input" элементы, являющиеся элементами формы (с тегами input, textarea или button)<br>
-":selected" выбранные элементы (со статусом selected). Это могут быть элементы типа <option>.<br>
+":selected" выбранные элементы (со статусом selected). Это могут быть элементы типа &lt;option&gt;.<br>
 ":focus" элементы формы, находящиеся в фокусе.<br>
-":checked" выбранные элементы (со статусом checked). Это могут быть элементы типа <checkbox> или <radio>.<br>
+":checked" выбранные элементы (со статусом checked). Это могут быть элементы типа &lt;checkbox&gt; или &lt;radio&gt;.<br>
 ":enabled" активные элементы формы (со статусом enabled)<br>
 ":disabled" неактивные элементы формы (со статусом disabled)<br>
 
@@ -561,7 +561,7 @@ document.getElementById('b13').onclick=function(){
         $(this).css('background-color', '#ffffff');
     });
     $('#b15').click(function(){
-    	$('#pers').after('<h3>'+$('#username').val()+'</h3>');
+    	$('#pers').after('&lt;h3&gt;'+$('#username').val()+'&lt;/h3&gt;');
     });
 
 </pre>
@@ -604,7 +604,7 @@ document.getElementById('b13').onclick=function(){
 <pre>
 $('#b23').click(function(){
 	   $('.inner').replaceWith(function(){
-     	return '<img src="/images/1.jpg">';
+     	return '&lt;img src="images/1.jpg"&gt;';
  		});
 	    
     });
