@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #clickme{width:160px; border:1px solid gray; padding:3px; background-color:#eee; cursor:pointer}
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<div id="clickme">
+  Получите уникальную методику обогащения, всего за 100 долларов
+</div>
+<img id="robot" src="/tags/images/100usd.jpg" alt=""/>
+<div id="result"></div>
+
+<script>
+$('#clickme').click(function(){
+  $('#robot').fadeOut('slow', function() {
+    $('#result').html("Ну, как всегда...");
+  });
+});
+</script>
+</body>
+</html>

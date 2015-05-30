@@ -1,0 +1,44 @@
+<!DOCTYPE html >
+<meta charset="UTF-8">
+
+<title>jQuery. slideToggle</title>
+
+<script src="js/jquery.min.js"></script>
+
+ <script>
+  $(document).ready(function(){
+
+    $("#aa").click(function () {
+      $("div:not(.still)").slideToggle("slow", function () {
+        var n = parseInt($("span").text(), 10);
+        $("span").text(n + 1);
+      });
+    });
+
+  });
+  </script>
+
+  <style>
+  div { background:#b977d1; margin:3px; width:60px;
+        height:60px; float:left; }
+  div.still { background:#345; width:5px; }
+  div.hider { display:none; }
+  span { color:red; }
+  </style>
+</head>
+<body>
+  <button id=aa>Toggle</button> There have been <span>0</span> toggled divs.
+  <div></div><div class="still"></div>
+
+  <div style="display:none;"></div>
+  <div class="still"></div>
+  <div class="hider"></div>
+  <div class="still"></div>
+  <div class="hider"></div>
+  <div class="still"></div>
+
+  <div class="hider"></div>
+  <div class="still"></div>
+  <div></div>
+</body>
+</html>

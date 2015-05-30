@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #clickme{width:300px; border:1px solid gray; padding:3px; cursor:pointer}
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<div id="clickme">
+При нажатии на надпись, скроем картинку, а после завершения этой анимации выведем текст:
+
+  Нажми на надпись, получишь результат...
+</div>
+<img id="robot" src="images/robot.jpg" alt=""/>
+<div id="result"></div>
+
+<script>
+$('#clickme').click(function(){
+  $('#robot').hide('slow', function() {
+    $('#result').html("...но твоя мечта не осуществится.<br>"+
+     "Нажал на надпись, но не особо рад —<br>"+
+     "с сайтом предстоит всю ночь возиться&nbsp;:-(");
+  });
+});
+</script>
+</body>
+</html>

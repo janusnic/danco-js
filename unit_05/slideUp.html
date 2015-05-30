@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #clickme{width:180px; border:1px solid gray; padding:3px; cursor:pointer}
+    body{background-color:#eee}
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<div id="clickme">
+  Утилизировать Бендера
+</div>
+<img id="robot" src="/tags/images/bender.jpg" style="width:147px" alt=""/>
+<div id="result"></div>
+
+<script>
+$('#clickme').click(function(){
+  $('#robot').slideUp('slow', function() {
+    $('#result').html("кто же теперь убьет всех человеков...");
+  });
+});
+</script>
+</body>
+</html>
