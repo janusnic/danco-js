@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+  Нажми на элементы списка.  
+  <ul>
+    <li>Один</li>
+    <li>Два</li>
+    <li>Три</li>
+  </ul>
+  <button>Добавить элемент</button><br><br>
+  
+  <span></span>
+  <script>
+    // методом live установим обработчик нажатия мышью по элементу
+    $("li").live("click", function(event){
+      $("span").append("Нажат элемент списка с обработчиком, установленным методом <b>live</b><br><br>");
+    });
+ 
+    // методом bind установим обработчик нажатия мышью по элементу
+    $("li").bind("click", function(event){
+      $("span").append("Нажат элемент списка с обработчиком, установленным методом <b>bind</b><br>");
+    });
+
+    $("button").bind("click", function(event){
+      $("ul").append("<li>Новый</li>");
+    });
+ 
+  </script>
+</body>
+</html>

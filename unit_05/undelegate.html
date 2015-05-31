@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+  Нажми на элементы списка.  
+  <ul id='foo'>
+    <li>Один</li>
+    <li>Два</li>
+    <li>Три</li>
+  </ul>
+  <button>undelegate</button><br><br>
+  
+  <span></span>
+  <script>
+var handler = function() {
+  alert('Шла Саша по шоссе');
+};
+ 
+// установим обработчик нажатия кнопки мыши на элементе foo, используя в качестве контекста body
+$('body').delegate('#foo', 'click', handler);
+ 
+// удалим обработчик
+$('body').undelegate('#foo', 'click', handler);
+
+ 
+  </script>
+</body>
+</html>

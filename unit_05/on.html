@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+  (нажмите на один из элементов из списка)
+  <ul>
+    <li>Быстрее</li>
+    <li>Выше</li>
+    <li>Сильнее</li>
+  </ul>
+  <script>
+    $('ul').on('click', "li", function(){
+      var txt = $(this).text(); // вытащим текст из нажатого элемента
+      alert('Вы нажали на элемент с текстом - «' + txt + '»'); // выведем сообщение с текстом
+    });
+  </script>
+</body>
+</html>
