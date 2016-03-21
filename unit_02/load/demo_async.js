@@ -1,1 +1,0 @@
-scriptObject.async=true;
