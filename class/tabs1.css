@@ -1,0 +1,19 @@
+#toggle_nav { width: 35%; margin: 40px auto; display: block; }
+
+a { font-style:none; font-size: 1.4em; }
+a:link { text-decoration:none; }
+
+ul li { text-align: center }
+ul ul li { text-align: left; }
+ul ul li a:hover { background:#eee; }
+
+#toggle_nav > li > a { background:#ff6732; color:#fff }
+
+ul li a { background:#f5f5f5; display:block; padding:20px 50px; color:#666 }
+a.active, #toggle_nav > li > a:hover { background:#b1fbd7 !important; }
+
+/* Thème */
+#toggle_nav > li:first-child > a { border-radius: 5px 5px 0 0 }
+#toggle_nav > li:last-child > a { border-top: 1px solid #eee; border-radius: 0 0 5px 5px }
+#toggle_nav > li:last-child > a.active { border-radius: 0 }
+#toggle_nav > li:last-child ul li:last-child a { border-radius: 0 0 5px 5px }
