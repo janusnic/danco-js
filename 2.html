@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class=''>
+<head>
+    <meta charset='UTF-8'>
+
+<link rel='stylesheet prefetch' href='css/reset.css'>
+<link rel='stylesheet prefetch' href='css/main.css'>
+
+</head>
+<body>
+<div id="Fader" class="fader">
+  <img class="slide" src="images/1.jpg"/>
+  <img class="slide" src="images/2.jpg"/>
+  <img class="slide" src="images/3.jpg"/>
+    <div class="fader_controls">
+      <div class="page prev" data-target="prev">&lsaquo;</div>
+      <div class="page next" data-target="next">&rsaquo;</div>
+      <ul class="pager_list"></ul>
+    </div>
+</div>
+
+<script src='js/jquery-3.1.0.min.js'></script>
+<script>
+
+    $(function() {
+        var $container = $('#Fader'),
+            slideSelector = '.slide',
+            fading = false,
+            slideTimer, activeSlide, newSlide,
+            $slides = $container.find(slideSelector),
+            totalSlides = $slides.length,
+            $pagerList = $container.find('.pager_list');
+
+            function changeSlides(target) {
+                if (target == 'next') {
+                    newSlide = activeSlide + 1;
+                    if (newSlide > totalSlides - 1) {
+                        newSlide = 0;
+                    }
+                } else if (target == 'prev') {
+                    newSlide = activeSlide - 1;
+                    if (newSlide < 0) {
+                        newSlide = totalSlides - 1;
+                    }
+                    ;
+                } else {
+                    newSlide = target;
+                }
+                ;
+
+            }
+
+
+            for (var i = 0; i < totalSlides; i++) {
+                $( "<li>" ).clone().append(''+i+'').addClass("page").attr('data-target', i).appendTo($pagerList);
+
+            }
+
+            $container.find('.page').on('click', function () {
+                var target = $(this).attr('data-target');
+
+                console.log(target);
+                changeSlides(target);
+            });
+
+            var $pagers = $pagerList.find('.page');
+            $slides.eq(0).css('opacity', 1);
+            $pagers.eq(0).addClass('active');
+            activeSlide = 0;
+
+
+    });
+
+</script>
+</body>
+
+</html>
