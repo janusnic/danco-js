@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Drag and drop shopping cart with jQuery UI</title>
+<script src="js/jquery.min.js"></script>
+<!-- 2. Подключим jQuery UI -->
+<link type="text/css" href="css/jquery-ui.min.css" rel="stylesheet" />
+<link type="text/css" href="css/theme.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="css/cart.css">
+</head>
+
+<body>
+<div class="container">
+<section id="header" style="margin-bottom: 50px;">
+    <h3>Drag ‘n’ Drop Shopping Cart With jQuery UI<h3></section>
+
+<section id="product">
+<ul class="clear">
+    <li data-id="1">
+    <a href="#">
+    <img src="images/1.jpg" alt="">
+    <h3>iPad 32gb retina screen</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+    <li data-id="2">
+    <a href="#">
+    <img src="images/2.jpg" alt="">
+    <h3>Turntable mixer</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+    <li data-id="3">
+    <a href="#">
+    <img src="images/3.jpg" alt="">
+    <h3>IBM 15" super-fast computer</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+    <li data-id="4">
+    <a href="#">
+    <img src="images/4.jpg" alt="">
+    <h3>Some crazy circuit</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+    <li data-id="5">
+    <a href="#">
+    <img src="images/1.jpg" alt="">
+    <h3>White earpieces</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+    <li data-id="6">
+    <a href="#">
+    <img src="images/2.jpg" alt="">
+    <h3>Headphones with free keyboard</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+    <li data-id="7">
+    <a href="#">
+    <img src="images/3.jpg" alt="">
+    <h3>iPhone 4S</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+    <li data-id="8">
+    <a href="#">
+    <img src="images/4.jpg" alt="">
+    <h3>Another crazy circuit or..</h3>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+    </a>
+    </li>
+</ul>
+</section>
+
+<aside id="sidebar">
+<div class="basket">
+<div class="basket_list">
+<div class="head">
+<span class="name">Product name</span>
+<span class="count">Quantity</span>
+</div>
+<ul>
+
+</ul>
+</div>
+</div>
+</aside>
+</div>
+<script>
+    $(function() {
+		// jQuery UI Draggable
+		$("#product li").draggable({
+
+			// brings the item back to its place when dragging is over
+			revert:true,
+
+			// once the dragging starts, we decrease the opactiy of other items
+			// Appending a class as we do that with CSS
+			drag:function () {
+				$(this).addClass("active");
+				$(this).closest("#product").addClass("active");
+			},
+
+			// removing the CSS classes once dragging is over.
+			stop:function () {
+				$(this).removeClass("active").closest("#product").removeClass("active");
+			}
+		});
+
+
+    });
+</script>
+</body>
+</html>

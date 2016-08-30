@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html class=''>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Accordion - Default functionality</title>
+  <script src="js/jquery.min.js"></script>
+  <!-- 2. Подключим jQuery UI -->
+  <link type="text/css" href="css/jquery-ui.min.css" rel="stylesheet" />
+  <link type="text/css" href="css/theme.css" rel="stylesheet" />
+  <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 
-<link rel='stylesheet prefetch' href='css/reset.css'>
-<link rel='stylesheet prefetch' href='css/main.css'>
+    <script>
+    $( function() {
+        $("#but1").click(function(){
+           $("#testcontainer").animate({
+              borderColor:"#EA3B53",
+              borderWidth:3,
+              backgroundColor:"#97D400",
+              width:500,
+              height:160},1500);
+        });
+    } );
+    </script>
 
-</head>
-<body>
-<div id="Fader" class="fader">
-  <img class="slide" src="images/1.jpg"/>
-  <img class="slide" src="images/2.jpg"/>
-  <img class="slide" src="images/3.jpg"/>
-    <div class="fader_controls">
-      <div class="page prev" data-target="prev">&lsaquo;</div>
-      <div class="page next" data-target="next">&rsaquo;</div>
-      <ul class="pager_list"></ul>
-    </div>
+  </head>
+  <body>
+ <button id=but1>Start</button>
+  <div id="testcontainer">
+      <h2>Content heading 1</h2>
+      <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 </div>
 
-<script src='js/jquery-3.1.0.min.js'></script>
-<script src='js/fadePlugin2.js'></script>
-<script>
-
-    $(function() {
-        $('#Fader').easyFader({
-                slideDuration: 6000,
-                fadeDuration: 800
-            });
-    });
-
-</script>
 </body>
-
 </html>
