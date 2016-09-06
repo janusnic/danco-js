@@ -1,700 +1,442 @@
-# Ajax 01
+# Ajax 02
 
-HTTP Server
-========
-Let's move on to a more advanced application; it's not as complicated as you may think. Lets start with the following code. Read the comments and then the explanation below:
+Создание AJAX запросов с помощью jQuery
+============================
+AJAX запрос созданный с помощью jQuery занимает всего одну строчку кода, и уже оптимизирован для использования и с новыми и старыми версиями браузеров.
 
-        // Include http module.
-        var http = require("http");
+Синтаксис:
 
-        // Create the server. Function passed as parameter is called on every request made.
-        // request variable holds all request parameters
-        // response variable allows you to do anything with response sent to the client.
-        http.createServer(function (request, response) {
-        	// Attach listener on end event.
-        	// This event is called when client sent all data and is waiting for response.
-        	request.on("end", function () {
-        		// Write headers to the response.
-        		// 200 is HTTP status code (this one means success)
-        		// Second parameter holds header fields in object
-        		// We are sending plain text, so Content-Type should be text/plain
-        		response.writeHead(200, {
-        			'Content-Type': 'text/plain'
-        		});
-        		// Send data and end response.
-        		response.end('Hello HTTP!');
-        	});
-        // Listen on the 8080 port.
-        }).listen(8080);
+    $("селектор").load(url,данные,функция)
 
-This code is very simple. You can send more data to the client by using the response.write() method, but you have to call it before calling response.end(). Save this code as http.js and type this into your console:
-
-    node http.js
-
-Open up your browser and navigate to http://localhost:8080. You should see the text "Hello HTTP!" in the page.
-
-AJAX расшифровывается Asynchronous JavaScript And XML (Асинхронный JavaScript и XML).
-
-AJAX - это эффективный способ совместного использования HTML, CSS, JavaScript и DOM.
-
-С помощью AJAX Вы можете заметно увеличить скорость реакции интерфейса и значительно уменьшить нагрузку на сервер. Это возможно благодаря асинхронному обмену информацией и способностью перезагружать только обновленную часть страницы без необходимости перезагрузки страницы целиком.
-
-AJAX используется многими известными веб-приложениями такими как: Facebook, Flickr, Gmail, Google Maps и Youtube.
-
-AJAX - это набор технологий, которые поддерживаются веб-браузерами.
-
-AJAX использует:
-
-- HTML в качестве "каркаса";
-- CSS для оформления;
-- DOM для извлечения или изменения информации на странице;
-- Объект XMLHttpRequest для асинхронного обмена данными с сервером;
-- JavaScript для связи перечисленных выше технологий между собой.
-
-Создание объекта XMLHttpRequest
-=======================
-Синтаксис для создания экземпляра объекта XMLHttpRequest:
-
-    переменная=new XMLHttpRequest();
-
-IE6 использует ActiveXObject вместо XMLHttpRequest, поэтому синтаксис для создания экземпляра объекта для него будет отличатся от приведенного выше.
-
-Синтаксис для создания экземпляра XMLHttpRequest в IE6:
-
-    переменная=new ActiveXObject("Microsoft.XMLHTTP");
-
-Если Вы хотите, чтобы Ваш код работал во всех браузерах используйте следующую конструкцию:
-
-        var xhttp;
-        // Если объект XMLHttpRequest существует, значит мы имеем дело с
-        // современным браузером Chrome, Firefox, Safari, Opera или IE7 и выше.
-
-        if (window.XMLHttpRequest){
-           xhttp=new XMLHttpRequest();
-        }
-
-        // Если же объект XMLHttpRequest не существует значит
-        // мы имеем дело с IE6 и нам придется воспользоваться специальным синтаксисом
-        else {
-           xhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-
-Свойства объекта XMLHttpRequest
-======================
-
-- onreadystatechange	Функция, код которой будет исполнен при изменении состояния готовности сервера.
-- readyState	Позволяет узнать состояние готовности сервера.
-- responseText	Хранит ответ сервера как строку символов.
-- responseXML	Хранит ответ сервера как XML файл.
-- status	Хранит код ответа сервера.
-
-Методы объекта XMLHttpRequest
-=====================
-Создает запрос.
--------------------
-        open(тип_запроса,url,способ)
-
-        тип_запроса устанавливает тип запроса (GET или POST).
-        url устанавливает путь к запрашиваемому файлу.
-        способ устанавливает способ выполнения запроса. При значении true запрос будет выполнен асинхронно, при false синхронно.
-
-Передать данные на сервер.
----------------------------------
-    send('данные')
-
-добавить HTTP заголовок к запросу.
-------------------------------------------
-    setRequestHeader(заголовок,значение)
-
-    заголовок содержит имя заголовка
-    значение содержит значение заголовка
-
-Отправление запроса на сервер
-=====================
-С помощью методов open() и send() объекта XMLHttpRequest Вы можете отправлять AJAX запросы.
-
-Синтаксис запроса:
-
-        // Создаем объект XMLHttpRequest
-        var xhttp=new XMLHttpRequest();
-        // Запросим содержимое файла testfile.txt
-        xhttp.open('GET',testfile.txt,true);
-        xhttp.send();
-
-
-Создает AJAX запрос.
--------------------------
-        open(тип_запроса,url,способ)
-
-        тип_запроса устанавливает тип запроса (GET или POST).
-        url устанавливает путь к запрашиваемому файлу.
-        способ устанавливает способ выполнения запроса. При значение true запрос будет выполнен асинхронно, при false синхронно.
-        send('данные')	Позволяет передать данные на сервер.
-
-npm init
-=====
-        This utility will walk you through creating a package.json file.
-        It only covers the most common items, and tries to guess sensible defaults.
-
-        See `npm help json` for definitive documentation on these fields
-        and exactly what they do.
-
-        Use `npm install <pkg> --save` afterwards to install a package and
-        save it as a dependency in the package.json file.
-
-        Press ^C at any time to quit.
-        name: (app1)
-        version: (1.0.0)
-        description: Vanilla Ajax NodeJS
-        entry point: (app.js)
-        test command:
-        git repository:
-        keywords: nodejs javascript ajax
-        author: Janus Nicon
-        license: (ISC)
-        About to write to /home/janus/github/danco-js/app1/package.json:
-
-        {
-          "name": "app1",
-          "version": "1.0.0",
-          "description": "Vanilla Ajax NodeJS",
-          "main": "app.js",
-          "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1"
-          },
-          "keywords": [
-            "nodejs",
-            "javascript",
-            "ajax"
-          ],
-          "author": "Janus Nicon",
-          "license": "ISC"
-        }
-
-
-        Is this ok? (yes) yes
-
-bin/www
-======
-
-        #!/usr/bin/env node
-
-        var app = require('../app');
-        app.listen(process.env.port || 3000);
-
-npm install fs
-=========
-       app1@1.0.0 /home/janus/github/danco-js/app1
-       └── fs@0.0.1-security
-
-app.js
-====
-        var http = require('http'),
-          fs = require('fs');
-
-          // store the contents of 'test.txt' to a buffer
-          var text = fs.readFileSync('./files/test.txt');
-
-          // Create the http server.
-          var app = http.createServer(function (request, response) {
-          // for GET requests, serve up the contents in 'test.txt'
-           response.writeHead(200, {'Content-Type': 'text/plain'});
-           response.end(text);
-
-          });
-
-        module.exports = app;
-
- app1 $ node bin/www
-
-app2/app.js
-========
-
-        var http = require('http'),
-          fs = require('fs');
-
-          // store the contents of 'test.txt' to a buffer
-          var html = fs.readFileSync('./views/index.html');
-
-          // Create the http server.
-          var app = http.createServer(function (request, response) {
-              // for GET requests, serve up the contents in 'index.html'
-           response.writeHead(200, {'Content-Type': 'text/html'});
-           response.end(html);
-
-          });
-
-        module.exports = app;
-
- Запрос GET
- ========
-
- Пример простого GET запроса, который запрашивает содержимое файла test.txt и выводит его на страницу:
-
-         xhttp=new XMLHttpRequest();
-         xhttp.onreadystatechange=function(){
-            if (xhttp.readyState==4 && xhttp.status==200)
-               document.getElementById("result").innerHTML=xhttp.responseText;
-            }
-         xhttp.open("GET","/files",true);
-         xhttp.send();
-
-app2/app.js
-========
-        var http = require('http'),
-          fs = require('fs');
-
-          // Create the http server.
-          var app = http.createServer(function (request, response) {
-           // for GET requests, serve up the contents in 'index.html'
-
-                       // Check if user requests /
-                       if (request.url == '/') {
-                           // store the contents of 'test.txt' to a buffer
-                           var html = fs.readFileSync('./views/index.html');
-                           response.writeHead(200, {'Content-Type': 'text/html'});
-                           response.end(html);
-                           }
-                      else if (request.url == '/files') {
-                           // Read the file.
-                           var text = fs.readFileSync('./files/test.txt');
-                           response.writeHead(200, {'Content-Type': 'text/plain'});
-                           response.end(text);
-                           } else {
-                               // Indicate that requested file was not found.
-                               response.writeHead(404);
-                               // And end request without sending any data.
-                               response.end();
-                            }
-          });
-
-        module.exports = app;
-
-Передача данных
-============
-Вместе с AJAX запросом на сервер могут быть переданы различные данные.
-
-Рассмотрим передачу информации на примере простого калькулятора, который складывает числа.
-
-        var x=document.getElementById('tf1').value;
-        var y=document.getElementById('tf2').value;
-        xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-          if (xhttp.readyState==4 && xhttp.status==200)
-             document.getElementById("ajax").innerHTML=xhttp.responseText;
-          }
-        xhttp.open("GET","/calc?x="+x+"&y="+y,true);
-        xhttp.send();
-
-
-Запрос POST
-========
-Приведем пример простого POST запроса, который запрашивает содержимое файла testfile.txt и выводит его на страницу:
-        <input id="v1"/>
-        <input id="v2"/>
-        <button onclick="calc();">Calculate</button>
-
-        function calc(){
-            var x=document.getElementById('v1').value;
-            var y=document.getElementById('v2').value;
-            xhttp=new XMLHttpRequest();
-            xhttp.onreadystatechange=function(){
-              if (xhttp.readyState==4 && xhttp.status==200)
-                 document.getElementById("result").innerHTML=xhttp.responseText;
-              }
-            var chunk = "x="+x+"&y="+y;
-            xhttp.open("POST","/calc",true);
-            xhttp.send(chunk);
-        }
-
-
-Метод POST как и метод GET позволяет передавать вместе с AJAX запросами различные данные.
-
-Данные, которые будут переданы на сервер должны быть указаны в качестве параметров метода send().
-
-Обратите внимание: чтобы отправить данные в формате, в котором передаются данные с HTML форм необходимо задать соответствующий HTTP заголовок с помощью setRequestHeader.
-
-Добавляет к запросу HTTP заголовок.
-========================
-        setRequestHeader(заголовок,значение)
-
-        заголовок имя HTTP заголовка.
-        значение значение HTTP заголовка.
+- селектор выбирает элемент, в котором будет отображен результат AJAX запроса.
+- url адрес, на который будет отправлен AJAX запрос.
+- данные является необязательным параметром. Данные, которые будут переданы вместе с запросом.
+- функция является необязательным параметром. Функция, которая будет вызвана после выполнения запроса.
 
 Пример
-        var x=document.getElementById('tf1').value;
-        var y=document.getElementById('tf2').value;
+        $(document).ready(function(){
 
-        xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-           if (xhttp.readyState==4 && xhttp.status==200)
-              document.getElementById('ajax').innerHTML=xhttp.responseText;
-           }
-        xhttp.open('POST','addpost.php',true);
-        xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        var str='x='+x+'&y='+y;
-        xhttp.send(str);
-
-Состояния готовности сервера
-====================
-С помощью свойства readyState Вы можете узнать состояние готовности сервера.
-
-Сервер может находится в 5 состояниях готовности:
-
-- Запрос не инициализирован;
-- Установлено подключение к серверу;
-- Запрос получен;
-- Обработка запроса;
-- Обработка запроса закончена и ответ готов.
-Во время обработки запроса свойство readyState поочередно принимает значения от 0 до 4.
-
-Пример
-        var xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-           if (xhttp.readyState==0)
-              document.getElementById('rs0').style.display='block';
-           if (xhttp.readyState==1)
-              document.getElementById('rs1').style.display='block';
-           if (xhttp.readyState==2)
-              document.getElementById('rs2').style.display='block';
-           if (xhttp.readyState==3)
-              document.getElementById('rs3').style.display='block';
-           if (xhttp.readyState==4){
-              document.getElementById('rs4').style.display='block';
-              document.getElementById('result').innerHTML=xhttp.responseText;
-           }
-        }
-        xhttp.open('GET','state.php',true);
-        xhttp.send();
-
-app3/scripts/index.js
-=============
-        (function () {
-            var retrieve = document.getElementById('retrieve'),
-                results = document.getElementById('results'),
-                toReadyStateDescription = function (state) {
-                    switch (state) {
-                    case 0:
-                        return 'UNSENT';
-                    case 1:
-                        return 'OPENED';
-                    case 2:
-                        return 'HEADERS_RECEIVED';
-                    case 3:
-                        return 'LOADING';
-                    case 4:
-                        return 'DONE';
-                    default:
-                        return '';
-                    }
-                };
-            retrieve.addEventListener('click', function (e) {
-                var bustCache = '?' + new Date().getTime(),
-                    oReq = new XMLHttpRequest();
-                oReq.onload = function (e) {
-                    var xhr = e.target;
-                    console.log('Inside the onload event');
-                    if (xhr.responseType === 'json') {
-                        results.innerHTML = xhr.response.message;
-                    } else {
-                        results.innerHTML = JSON.parse(xhr.responseText).message;
-                    }
-                };
-                oReq.onreadystatechange = function () {
-                    console.log('Inside the onreadystatechange event with readyState: ' + toReadyStateDescription(oReq.readyState));
-                };
-                oReq.open('GET', e.target.dataset.url + bustCache, true);
-                oReq.responseType = 'json';
-                oReq.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                oReq.setRequestHeader('x-vanillaAjaxWithoutjQuery-version', '1.0');
-                oReq.send();
-            });
-        }());
-
-views/index.html
-===========
-
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width" />
-            <title>Vanilla Ajax without jQuery</title>
-        </head>
-        <body>
-            <h1>Vanilla Ajax without jQuery</h1>
-            <button id="retrieve" data-url="/">Retrieve</button>
-            <p id="results"></p>
-            <script src="/scripts/index.js" async></script>
-        </body>
-        </html>
-
-app.js
-====
-
-        var http = require('http'),
-          fs = require('fs'),
-          url = require('url');
-
-          function render(path, contentType, fn) {
-            fs.readFile(__dirname + '/' + path, 'utf-8', function (err, str) {
-              fn(err, str, contentType);
-            });
-          }
-
-          // Create the http server.
-          var app = http.createServer(function (request, response) {
-
-              var httpHandler = function (err, str, contentType) {
-               if (err) {
-                 response.writeHead(500, { 'Content-Type': 'text/plain' });
-                 response.end('An error has occured: ' + err.message);
-               } else {
-                 response.writeHead(200, { 'Content-Type': contentType });
-                 response.end(str);
-               }
-           };
-
-          if (request.url == '/') {
-               render('views/index.html', 'text/html', httpHandler);
-               }
-         else if(request.url.indexOf('/scripts/') >= 0) {
-                 render(request.url.slice(1), 'application/javascript', httpHandler);
-               } else if (request.headers['x-requested-with'] === 'XMLHttpRequest' && request.headers['x-vanillaajaxwithoutjquery-version'] === '1.0') {
-                 response.writeHead(200, { 'Content-Type': 'application/json' });
-                 response.end(JSON.stringify({ message: 'Hello World!' }));
-             }
-
-        else {
-           // Indicate that requested file was not found.
-          response.writeHead(404);
-          // And end request without sending any data.
-          response.end();
-         }
-
-          });
-
-        module.exports = app;
-
-Свойство status
-===========
-С помощью свойства status Вы можете узнать код ответа на Ваш запрос.
-
-Код 200 означает - запрос обработан успешно, код 404 означает - страница не существует.
-
-Пример
-        function requestBad(){
-           var xhttp=new XMLHttpRequest();
-           xhttp.onreadystatechange=function(){
-              document.getElementById('result').innerHTML=xhttp.status;
-           }
-           xhttp.open('GET','nepage',true);
-           xhttp.send();
-        }
-        function requestGood(){
-           var xhttp=new XMLHttpRequest();
-           xhttp.onreadystatechange=function(){
-              document.getElementById('result').innerHTML=xhttp.status;
-           }
-           xhttp.open('GET','test.xml',true);
-           xhttp.send();
-        }
-
-содержимое данного свойства доступно только для чтения.
-
-Событие onreadystatechange
-===================
-Событие onreadystatechange выполняет код при изменении содержимого свойства readyState (т.е. во время успешного запроса код функции выполняется 4 раза).
-
-Для того, чтобы корректно обработать ответ сервера необходимо добавить проверку условия if (XMLHttpRequest.readyState==4 && XMLHttpRequest.status==200) и только после этого получать и обрабатывать соответствующие данные.
-
-Пример
-        var xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-           if (xhttp.readyState==0){
-              document.getElementById('rs0').style.display='block';
-              document.getElementById('res0').innerHTML=responseText;
-           }  
-           if (xhttp.readyState==1){
-              document.getElementById('rs1').style.display='block';
-              document.getElementById('res1').innerHTML=responseText;
-           }
-           if (xhttp.readyState==2){
-              document.getElementById('rs2').style.display='block';
-              document.getElementById('res2').innerHTML=responseText;
-           }
-           if (xhttp.readyState==3){
-              document.getElementById('rs3').style.display='block';
-              document.getElementById('res3').innerHTML=responseText;
-           }
-           if (xhttp.readyState==4){
-              document.getElementById('rs4').style.display='block';
-              document.getElementById('res4').innerHTML=xhttp.responseText;
-           }
-        }
-        xhttp.open('GET','state.php',true);
-        xhttp.send();
-
-Принятие ответа сервера
-=================
-Для того, чтобы принять ответ сервера используйте свойства объекта XMLHttpRequest responseText и responseXML.
-
-- responseText	Хранит ответ сервера как строку символов.
-- responseXML	Хранит ответ сервера как XML файл.
-
-Свойство responseText
-===============
-Если запрошенные у сервера данные не являются XML данными, то для считывания ответа сервера используйте свойство responseText.
-
-Пример
-        xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-          if (xhttp.readyState==4 && xhttp.status==200)
-          document.getElementById("ajax").innerHTML=xhttp.responseText;
-          }
-        xhttp.open("GET","testfile.txt",true);
-        xhttp.send();
-
-Свойство responseXML
-==============
-Если Вы ожидаете получить от сервера XML данные используйте для считывания ответа сервера свойство responseXML.
-
-Пример
-        xhttp=new XMLHttpRequest();
-        xhttp.onreadystatechange=function(){
-           if (xhttp.readyState==4 && xhttp.status==200){
-              var r=xhttp.responseXML;
-              document.getElementById('ajax').innerHTML="Содержимое первого тэга name
-              в XML файле: "+ r.getElementsByTagName('name')[0].childNodes[0].nodeValue;
-              var dep=r.getElementsByTagName('dept');
-              var cont="Содержимое всех тэгов dept в XML файле: <br />";
-              for (var i=0;i<dep.length;i++){
-                 cont+=(i+1)+". "+dep[i].childNodes[0].nodeValue+" руб.<br />";
-              }
-           document.getElementById('ajax1').innerHTML=cont;
-           }
-        }
-        xhttp.open("GET","test.xml",true);
-        xhttp.send();
-
-
-app4
-
-    install dependencies:
-     $ cd app4 && npm install
-
-   run the app:
-     $ DEBUG=app4:* npm start
-
-layout.jade
-========
-        doctype html
-        html
-          head
-            title= title
-            link(rel='stylesheet', href='/stylesheets/foundation.min.css')
-            link(rel='stylesheet', href='/stylesheets/style.css')
-          body
-            header
-              div.top-bar
-                div.top-bar-left
-                  ul.menu
-                    li
-                      a(href="/") Home
-                    li
-                      a(href="/state") Ready State
-                    li
-                      a(href="#") Three
-                    li
-                      a(href="#") Four
-            block content
-
-index.jade
-=======
-    extends layout
-
-    block content
-      h1= title
-      p Welcome to #{title}
-
-state.jade
-=======
-
-        extends layout
-
-        block content
-
-          div.row
-            div(class="small-12 columns")
-              h1= title
-
-              button#start Print Result
-
-              div#console  Cosole log panel
-
-              div#result Print Result
-
-          script(src="/javascripts/state.js")
-
+           $("#but1").click(function(){
+              $("#result").load("/load");
+           })
+           $("#but2").click(function(){
+              $("#result").load("/loadhtml");
+           })
+           $("#but3").click(function(){
+              $("#result").load("/loadimg");
+           })
+        });
 index.js
 =====
+    router.get('/load', function(req, res, next) {
+      var text = fs.readFileSync('./public/files/test.txt');
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.end(text);
+    });
+    router.get('/loadhtml', function(req, res, next) {
+      var text = fs.readFileSync('./public/files/test.html');
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.end(text);
+    });
+    router.get('/loadimg', function(req, res, next) {
+        var text = "<img src='images/ajax.jpg'>";
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(text);
+    });
 
-        var express = require('express');
-        var router = express.Router();
+Низкоуровневые AJAX запросы
+====================
+Высокоуровневые методы создания AJAX запросов подходят для создания большей части запросов, но иногда их функциональности становится недостаточно.
 
-        /* GET home page. */
-        router.get('/', function(req, res, next) {
-          res.render('index', { title: 'Express' });
+Низкоуровневые AJAX запросы предоставляют более широкую функциональность, но более сложны в использовании.
+
+Синтаксис аналогичного низкоуровневого AJAX запроса:
+
+Пример
+    $.ajax({
+       url:"/add",
+       data:"x=4&y=5",
+       success:function(result){
+          $("#par1").html(result)
+       }
+    });
+
+В примере мы пересылаем скрипту calc переменную x и переменную y, он в свою очередь принимает эти переменные, производит их сложение и отправляет результат обратно.
+
+Пример
+        <p>
+            <input id="v1"/>   <input id="v2"/><a class="btn btn-lg btn-primary" id="but4" role="button">Calculate &raquo;</a>
+        </p>
+
+        <div id="sum">
+        </div>
+        <script>
+        $(document).ready(function(){
+
+           $("#but4").click(function(){
+               var x=document.getElementById('v1').value;
+               var y=document.getElementById('v2').value;
+               var chunk = "x="+x+"&y="+y;
+               $.ajax({
+                      type: "POST",
+                      url: "/calc",
+                      data: chunk,
+                      success: function(data) {
+                        $("#sum").append(data);
+                      },
+                      error: function(error, txtStatus) {
+                        console.log(txtStatus);
+                        console.log('error');
+                      }
+                    });
+           })
         });
-        router.get('/state', function(req, res, next) {
-          res.render('state', { title: 'Ajax [ Ready State ] Sample' });
+        </script>
+
+        router.post('/calc', function(req, res, next) {
+            //js functions running only in Node.JS
+            var calc = function(a,b){
+              return  Number(a)+Number(b);;
+          };
+            console.log(req.body['x']);
+            console.log(req.body['y']);
+
+              var result = calc(req.body['x'],req.body['y']);
+              //fill in the result values
+              result = result.toString();
+              //respond
+              res.send(result);
         });
-        module.exports = router;
+
+Работа с XML файлами
+===============
+С помощью AJAX Вы можете удобно извлекать информацию из XML файлов.
+
+        <h4>Парсим XML средствами jQuery</h4>
+        <a class="btn btn-lg btn-primary" id="but5" role="button">Парсим XML &raquo;</a>
+
+        <div class="main">
+            <div align="center" class="loader"><img src="/images/loader.gif" id="preload" width="16" height="11" align="absmiddle"/></div>
+        </div>
+        <script>
+        $(document).ready(function () {
+            $("#but5").click(function(){
+                $.ajax({
+                    type: "GET",
+                    url: "/books",
+                    dataType: "xml",
+                    success: xmlParser
+                });
+            });
+        });
+
+        function xmlParser(xml) {
+            $('#preload').fadeOut();
+            $(xml).find("Book").each(function () {
+                $(".main").append('<div class="book"><div class="title">' + $(this).find("Title").text() + '</div><div class="description">' + $(this).find("Description").text() + '</div><div class="date">Published ' + $(this).find("Date").text() + '</div></div>');
+                $(".book").fadeIn(1000);
+            });
+        }
+        </script>
+        </div>
 
 
-state.js
+books.xml
+=======
+
+        <?xml version="1.0" encoding="utf-8" ?>
+        <RecentBooks>
+          <Book>
+            <Title>My Cool Book Title</Title>
+            <Description>The my cool book is possibly the best cool book in that any developer could use to be a great web designer.</Description>
+            <Date>12/1/2016</Date>
+          </Book>
+          <Book>
+            <Title>Another PHP book</Title>
+            <Description>Learn everything about PHP with 'Another PHP book,' your ultimate guide to the ins and outs of PHP.</Description>
+            <Date>4/1/2016</Date>
+          </Book>
+          <Book>
+            <Title>jQuery Techniques</Title>
+            <Description>jQuery techniques runs you through real life examples of jQuery from beginner to expert</Description>
+            <Date>6/2/2016</Date>
+          </Book>
+          <Book>
+            <Title>MySQL Database Book</Title>
+            <Description>Brush up your knowledge with the best MySQL database book on the market.</Description>
+            <Date>14/2/2016</Date>
+          </Book>
+        </RecentBooks>
+
+
+        router.get('/books', function(req, res, next) {
+            var text = fs.readFileSync('./public/files/books.xml');
+            res.writeHead(200, {'Content-Type': 'text/xml'});
+            res.end(text);
+        });
+
+Работа с JSON файлами
+================
+Пример позволяет просматривать книги имеющиеся в каталоге книжного магазина.
+
+        <p>
+            <a class="btn btn-lg btn-primary" id="but6" role="button">книги в каталоге книжного магазина &raquo;</a>
+        </p>
+
+        <div id="books">
+        </div>
+        <script>
+        $(document).ready(function(){
+           $("#but6").click(function(){
+               $.ajax({
+                      url: "/catalog",
+                      method: 'GET',
+
+                      dataType: "json",
+                      success: function(data) {
+                          data = JSON.parse(data);
+                           $.each( data, function( i, item ) {
+                           $("#books").append('<div class="books"><div class="title">' + item.title + '</div><div class="description">Author ' + item.author + '</div><div class="date">Cost ' + item.cost+ '</div><div class="date">Quantity '+ item.quantity + '</div></div>').fadeIn(1000);
+                        });
+                      },
+                      error: function(error, txtStatus) {
+                        console.log(txtStatus);
+                        console.log('error');
+                      }
+                    });
+           })
+        });
+        </script>
+
+        router.get('/catalog', function(req, res, next) {
+            var text = JSON.stringify(fs.readFileSync('./public/files/bookbase.json',  'utf8'));
+            res.send(text);
+        });
+
+        [{"title":"Гарри Поттер и философский камень","author":"Джоан Ролинг","cost":500,"quantity":15},{"title":"Дракула ","author":"Брэм Стокер","cost":430,"quantity":5},{"title":"Преступление и наказание","author":"Федор Достоевский", "cost":400, "quantity":10}, {"title":"Страх и отвращение в Лас-Вегасе ", "author":"Хантер Томпсон", "cost":340,"quantity":12},{"title":"Кафка на пляже ","author":"Харуки Мураками","cost":340,"quantity":16},{"title":"Охота на овец ","author":"Харуки Мураками","cost":345,"quantity":14},{"title":"Ромео и Джульета ","author":"Уильям Шекспир","cost":330,"quantity":5},{"title":"Война и мир. В двух томах. ","author":"Лев Толстой","cost":480,"quantity":3},{"title":"Властелин колец. Трилогия","author":"Джон Толкин","cost":500,"quantity":8},{"title":"Хоббит","author":"Джон Толкин","cost":460,"quantity":6},{"title":"Мастер и Маргарита ","author":"Михаил Булгаков","cost":300,"quantity":5},{"title":"Русские народные сказки ", "author":"Неизвестен","cost":600,"quantity":7},{"title":"Руслан и Людмила ", "author":"Александр Пушкин","cost":320,"quantity":6}]
+
+File Uploader
+========
+        <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                    <h2>File Uploader</h2>
+                    <h4><%= title %></h4>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar"></div>
+                    </div>
+                    <button class="btn btn-lg upload-btn" type="button">Upload File</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div> <!-- /container -->
+        <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+        <script src="javascripts/upload.js"></script>
+
+javascripts/upload.js
+=============
+        $('.upload-btn').on('click', function (){
+            $('#upload-input').click();
+            $('.progress-bar').text('0%');
+            $('.progress-bar').width('0%');
+        });
+
+        $('#upload-input').on('change', function(){
+
+          var files = $(this).get(0).files;
+
+          if (files.length > 0){
+            // create a FormData object which will be sent as the data payload in the
+            // AJAX request
+            var formData = new FormData();
+
+            // loop through all the selected files and add them to the formData object
+            for (var i = 0; i < files.length; i++) {
+              var file = files[i];
+
+              // add the files to formData object for the data payload
+              formData.append('uploads[]', file, file.name);
+            }
+
+            $.ajax({
+              url: '/upload',
+              type: 'POST',
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(data){
+                  console.log('upload successful!\n' + data);
+              },
+              xhr: function() {
+                // create an XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+
+                // listen to the 'progress' event
+                xhr.upload.addEventListener('progress', function(evt) {
+
+                  if (evt.lengthComputable) {
+                    // calculate the percentage of upload completed
+                    var percentComplete = evt.loaded / evt.total;
+                    percentComplete = parseInt(percentComplete * 100);
+
+                    // update the Bootstrap progress bar with the new percentage
+                    $('.progress-bar').text(percentComplete + '%');
+                    $('.progress-bar').width(percentComplete + '%');
+
+                    // once the upload reaches 100%, set the progress bar text to done
+                    if (percentComplete === 100) {
+                      $('.progress-bar').html('Done');
+                    }
+                  }
+                }, false);
+                return xhr;
+              }
+            });
+          }
+        });
+
+        npm install formidable
+        app4@0.0.0 /home/janus/github/danco-js/app
+        └── formidable@1.0.17
+
+routes/index.js
+==========
+        var formidable = require('formidable');
+
+        router.get('/upload', function(req, res, next) {
+          // console.log(path.join(__dirname, '/../uploads'));
+          res.render('upload', { title: 'Отправка файла с помощью Ajax', project: 'Janus Site' });
+        });
+        router.post('/upload', function(req, res){
+
+          // create an incoming form object
+          var form = new formidable.IncomingForm();
+
+          // specify that we want to allow the user to upload multiple files in a single request
+          form.multiples = true;
+
+          // store all uploads in the /uploads directory
+          form.uploadDir = path.join(__dirname, '/../public/uploads');
+
+          // every time a file has been uploaded successfully,
+          // rename it to it's orignal name
+          form.on('file', function(field, file) {
+            fs.rename(file.path, path.join(form.uploadDir, file.name));
+          });
+
+          // log any errors that occur
+          form.on('error', function(err) {
+            console.log('An error has occured: \n' + err);
+          });
+
+          // once all the files have been uploaded, send a response to the client
+          form.on('end', function() {
+            res.end('success');
+          });
+
+          // parse the incoming request containing the form data
+          form.parse(req);
+
+        });
+
+gallery
 =====
 
-        function print_console(text){
-          document.getElementById("console").innerHTML += text;
-        }
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                  <div id="photos">
+                  </div>
+              </div>
+            </div>
+          </div>
+                    <script>
+                    $(document).ready(function(){
+                           $.ajax({
+                                  url: "/gallery",
+                                  method: 'GET',
+                                  dataType: "json",
+                                  success: function(data) {
+                                      //data = JSON.parse(data);
+                                      console.log(data);
+                                       $.each( data, function( i, item ) {
+                                       $("#photos").append('<div class="books"><div class="title"><img src=/uploads/' + item.name + ' /></div></div>').fadeIn(1000);
+                                    });
+                                  },
+                                  error: function(error, txtStatus) {
+                                    console.log(txtStatus);
+                                    console.log('error');
+                                  }
+                                });
+                    });
+                    </script>
+                </div>
+        </div> <!-- /container -->
 
-        function startAjax(){
-          var request;
+routes/index.js
+==========
+        https://www.npmjs.com/package/directory-tree
 
-          if(window.XMLHttpRequest){
-              request = new XMLHttpRequest();
-          } else if(window.ActiveXObject){
-              request = new ActiveXObject("Microsoft.XMLHTTP");
-          } else {
-              return;
-          }
+        var diretoryTreeToObj = function(dir, done) {
+            var results = [];
 
-          document.getElementById("start").addEventListener('click',function(){
+            fs.readdir(dir, function(err, list) {
+                if (err)
+                    return done(err);
 
-          request.onreadystatechange = function(){
-            switch (request.readyState) {
-              case 1: print_console("<br/><em>1: вызван open...</em>"); break
-              case 2: print_console("<br/><em>2: получены заголовки...</em>"); break
-              case 3: print_console("<br/><em>3: загружается тело..</em>"); break
-              case 4:{
-               if(request.status==200){
-                    print_console("<br/><em>4: запрос завершён</em>");
-                    document.getElementById("result").innerHTML = "<b>"+request.responseText+"</b>";
-                   }else if(request.status==404){
-                    console.log("HTTP Status: 404 : NOT FOUND!");
-                   }
-                    else console.log("текущее состояние запроса: "+ request.status);
+                var pending = list.length;
 
-              break
-              }
-            }
-            }
-            request.open("GET",'#',true);
-            request.send();
+                if (!pending)
+                    return done(null, {name: path.basename(dir), type: 'folder', children: results});
+
+                list.forEach(function(file) {
+                    file = path.resolve(dir, file);
+                    fs.stat(file, function(err, stat) {
+                        if (stat && stat.isDirectory()) {
+                            diretoryTreeToObj(file, function(err, res) {
+                                results.push({
+                                    name: path.basename(file),
+                                    type: 'folder',
+                                    children: res
+                                });
+                                if (!--pending)
+                                    done(null, results);
+                            });
+                        }
+                        else {
+                            results.push({
+                                type: 'file',
+                                name: path.basename(file)
+                            });
+                            if (!--pending)
+                                done(null, results);
+                        }
+                    });
+                });
             });
+        };
 
-        }
+        router.get('/photogallery', function(req, res, next) {
 
-        window.onload = startAjax();
+        res.render('gallery', { title: 'Photo Gallery Express Ajax', project: 'Janus Site' });
+        });
+
+        router.get('/gallery', function(req, res, next) {
+
+        var dirTree = path.join(__dirname, '/../public/uploads');
+
+        diretoryTreeToObj(dirTree, function(err, result){
+            if(err)
+                console.error(err);
+
+            //console.log(JSON.stringify(result));
+            res.send(JSON.stringify(result));
+        });
+
+        });
